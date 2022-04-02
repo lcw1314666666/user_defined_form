@@ -2,7 +2,7 @@
   <div class="analysis-form-data">
     <el-form ref="form" :model="formData" label-width="80px" class="user-form">
 
-      <draggable v-model="templateData" :options="{group:{name: 'template', pull: false} }" class="draggable">
+      <draggable v-model="templateData" :options="{group:{name: 'template', pull: false}, handle: '.from-item' }" class="draggable">
 <!--        <transition-group>-->
           <div v-for="(item, index) in templateData" :key="item.key + index" class="form-element" :class="{'active-form-item': index === activeIndex, 'required': item.isRequired}" @click="handleItemClick(index)">
             <div class="operate-list">
