@@ -1,7 +1,7 @@
 <template>
   <div class="analysis-form-data">
     <el-form ref="form" :model="formData" label-width="80px" class="user-form">
-
+      <el-input type="input" v-model="title" placeholder="请输入表单名称"></el-input>
       <draggable v-model="templateData" :options="{group:{name: 'template', pull: false}, handle: '.from-item' }" class="draggable">
 <!--        <transition-group>-->
           <div v-for="(item, index) in templateData" :key="item.key + index" class="form-element" :class="{'active-form-item': index === activeIndex, 'required': item.isRequired}" @click="handleItemClick(index)">
@@ -71,6 +71,12 @@
                     <el-input type="input" v-model="item.placeholder"></el-input>
                   </el-form-item>
 
+                  <el-form-item v-if="item.type === 'select'" class="from-item" :label="item.label">
+                    <el-input v-for="options in item.options" :key="options.value" type="input" v-model="options.label"></el-input>
+                    <span class="btn" @click="item.options.push({label: '', value: item.options.length})">添加项</span>
+                    <span class="btn" @click="item.options.push({label: '其他', value: item.options.length})">添加其他项</span>
+                  </el-form-item>
+
                   <el-form-item v-if="item.type === 'radio'" class="from-item radio-item" :label="item.label">
                     <el-radio-group v-model="item.value">
                       <el-radio v-for="(value, index) in item.radioList" :key="value.label + index" :value="value.value">
@@ -127,6 +133,7 @@ export default {
   },
   data() {
     return {
+      title: '',
       checkList: [],
       activeIndex: null,
       templateData: JSON.parse(JSON.stringify(this.template)),
@@ -177,6 +184,7 @@ export default {
       cursor: pointer;
       .form-element {
         position: relative;
+        box-sizing: border-box;
         //padding: 20px 0;
         &.required::after {
           position: absolute;
@@ -194,6 +202,7 @@ export default {
           }
         }
         &.active-form-item {
+          box-sizing: border-box;
           border: 1px solid #166bc7;
           .operate-list {
             display: block;
@@ -269,6 +278,14 @@ export default {
             border-radius: 2px;
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
             .demo-ruleForm {
+              .from-item {
+                .btn {
+                  color: #3989d4;
+                  font-size: 12px;
+                  background: #fff;
+                  padding-right: 8px;
+                }
+              }
               .radio-item,
               .checkbox-item {
                 .el-input {
