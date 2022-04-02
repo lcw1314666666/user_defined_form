@@ -140,6 +140,14 @@ export default {
       formData: {}
     }
   },
+  watch: {
+    template: {
+      handler(val) {
+        this.templateData = JSON.parse(JSON.stringify(val))
+      },
+      immediate: true
+    }
+  },
   methods: {
     handleInput(label) {
       console.log(label)
@@ -197,6 +205,7 @@ export default {
         &:hover {
           border-radius: 5px;
           border: 1px dashed #166bc7;
+          box-sizing: border-box;
           .operate-list {
             display: block;
           }

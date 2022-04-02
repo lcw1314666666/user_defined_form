@@ -4,7 +4,7 @@
 
       <draggable v-model="list" :options="{group:{name: 'template', pull:'clone'}, sort: false, disabled: false, ghostClass: 'active'}" :clone="handleClone">
         <transition-group>
-          <div v-for="element in list" :key="element.key" class="origin-item">
+          <div v-for="element in list" :key="element.key" class="origin-item" @click="handleItemClick(element)">
             {{ element.typeName }}
           </div>
         </transition-group>
@@ -12,7 +12,7 @@
 
     </div>
     <div class="container">
-      <AnalysisFormData :template="[]"></AnalysisFormData>
+      <AnalysisFormData :template="template"></AnalysisFormData>
     </div>
   </div>
 </template>
@@ -28,6 +28,7 @@ export default {
   },
   data() {
     return {
+      template: [],
       list: [
         {
           key: 'name',
@@ -119,6 +120,9 @@ export default {
   methods: {
     handleClone(data) {
       return JSON.parse(JSON.stringify(data))
+    },
+    handleItemClick(element) {
+      this.template.push(element)
     }
   },
   updated() {
