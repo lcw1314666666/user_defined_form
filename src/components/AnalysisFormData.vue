@@ -2,7 +2,7 @@
   <div class="analysis-form-data">
     <el-form ref="form" :model="formData" label-width="80px" class="user-form">
 
-      <draggable v-model="templateData" :options="{group:{name: 'template', pull: false}}" class="draggable">
+      <draggable v-model="templateData" :options="{group:{name: 'template', pull: false} }" class="draggable">
 <!--        <transition-group>-->
           <div v-for="(item, index) in templateData" :key="item.key + index" class="form-element" :class="{'active-form-item': index === activeIndex, 'required': item.isRequired}" @click="handleItemClick(index)">
             <div class="operate-list">
@@ -177,7 +177,7 @@ export default {
       cursor: pointer;
       .form-element {
         position: relative;
-        padding: 20px 0;
+        //padding: 20px 0;
         &.required::after {
           position: absolute;
           left: 70px;
@@ -198,6 +198,9 @@ export default {
           .operate-list {
             display: block;
           }
+        }
+        .from-item {
+          padding: 20px 0;
         }
         .operate-list {
           display: none;
@@ -234,6 +237,7 @@ export default {
           box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
           &.active {
             display: block;
+            //z-index: -1;
           }
           .top-title {
             position: relative;
